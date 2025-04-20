@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useNavigate, Link } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
-import { auth } from "../../firebase/config";
+import { useRegister } from "../../hooks/useRegister"; 
 
 function Register() {
   const [name, setName] = useState("");
@@ -14,6 +13,7 @@ function Register() {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
+  const { register } = useRegister(); 
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -30,18 +30,8 @@ function Register() {
     }
 
     setLoading(true);
-
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      await updateProfile(userCredential.user, {
-        displayName: name,
-      });
-
-      navigate("/");
-    } catch (error) {
-      setError(error.message.replace("Firebase: ", ""));
-      setLoading(false);
-    }
+    await register(name, email, password);
+    setLoading(false);
   };
 
   return (

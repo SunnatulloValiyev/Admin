@@ -1,30 +1,19 @@
 import { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate, Link } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
-import { auth } from "../../firebase/config";
+import { useLogin } from "../../hooks/useLogin";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
+  const { login, error, loading } = useLogin();
 
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate("/");
-    } catch (error) {
-      setError(error.message.replace("Firebase: ", ""));
-      setLoading(false);
-    }
+  const handleLogin = (e) => {
+    e.preventDefault();
+    login(email, password);
   };
 
   return (
@@ -45,9 +34,7 @@ function Login() {
 
           <form onSubmit={handleLogin} className="space-y-8">
             <div>
-              <label htmlFor="email" className="block text-lg font-medium text-gray-700 mb-2">
-                Email
-              </label>
+              <label htmlFor="email" className="block text-lg font-medium text-gray-700 mb-2">Email</label>
               <input
                 id="email"
                 type="email"
@@ -59,9 +46,7 @@ function Login() {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-lg font-medium text-gray-700 mb-2">
-                Password
-              </label>
+              <label htmlFor="password" className="block text-lg font-medium text-gray-700 mb-2">Password</label>
               <div className="relative">
                 <input
                   id="password"
@@ -76,11 +61,7 @@ function Login() {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute inset-y-0 right-0 flex items-center pr-4"
                 >
-                  {showPassword ? (
-                    <EyeOff className="h-6 w-6 text-gray-400" />
-                  ) : (
-                    <Eye className="h-6 w-6 text-gray-400" />
-                  )}
+                  {showPassword ? <EyeOff className="h-6 w-6 text-gray-400" /> : <Eye className="h-6 w-6 text-gray-400" />}
                 </button>
               </div>
             </div>
@@ -88,9 +69,7 @@ function Login() {
             <button
               type="submit"
               disabled={loading}
-              className={`w-full text-white text-lg font-semibold  py-4 rounded-lg bg-[#1e1e2d] hover:bg-[#2a2a3d] transition-colors ${
-                loading ? "opacity-70 cursor-not-allowed" : ""
-              }`}
+              className={`w-full text-white text-lg font-semibold py-4 rounded-lg bg-[#1e1e2d] hover:bg-[#2a2a3d] transition-colors ${loading ? "opacity-70 cursor-not-allowed" : ""}`}
             >
               {loading ? "Logging In..." : "Login"}
             </button>

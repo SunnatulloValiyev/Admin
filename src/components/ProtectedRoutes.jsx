@@ -1,15 +1,14 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-function ProtectedRoutes({ children, user, loading }) {
+function ProtectedRoutes({ children }) {
+  const { user, loading } = useSelector((state) => state.user);
+
   if (loading) {
-    return <div>Loading...</div>; // Optional loading state while checking user auth
+    return <div className="flex justify-center items-center h-screen">Loading...</div>;
   }
 
-  if (user) {
-    return children;
-  } else {
-    return <Navigate to="/login" />;
-  }
+  return user ? children : <Navigate to="/login" replace />;
 }
 
 export default ProtectedRoutes;

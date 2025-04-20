@@ -33,37 +33,3 @@
     /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
-*,
-*::after,
-*::before {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-
-html {
-    height: 100%;
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: 'Public Sans';
-}
-
-ul,
-ol {
-    list-style: none;
-}
-
-img {
-    display: flex;
-    object-fit: cover;
-}
-
-
-a {
-    text-decoration: none;
-    display: inline-block;    
-}
-

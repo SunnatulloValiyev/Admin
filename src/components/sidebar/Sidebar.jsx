@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import {
   Home,
   ArrowDownUp,
@@ -27,7 +27,6 @@ function Sidebar() {
   }, []);
 
   const toggleSidebar = () => {
-    setIsCollapsed(!isCollapsed);
   };
 
   useEffect(() => {
@@ -41,14 +40,14 @@ function Sidebar() {
       className={`
         ${
           isMobile
-            ? "fixed bottom-0 left-0 right-0 h-16 flex-row"
+            ? "fixed bottom-0 left-0 right-0 h-16 flex-row z-50"
             : `h-screen ${isCollapsed ? "w-16" : "w-64"}`
         } 
         bg-gray-900 text-white flex transition-all duration-300 ease-in-out
       `}
     >
       <div
-        className={`flex flex-col flex-1 ${
+        className={`flex flex-col flex-1 rounded-bl-4xl rounded-br-4xl ${
           isMobile ? "flex-row w-full justify-around" : ""
         }`}
       >
@@ -60,9 +59,9 @@ function Sidebar() {
 
         <nav
           className={`
-          flex 
+          flex flex-[0.5]
           ${
-            isMobile ? "flex-row justify-around w-full" : "flex-col gap-2 px-3"
+            isMobile ? "flex-row justify-around w-full" : "flex-col justify-center  gap-2 px-3"
           } 
           ${isCollapsed && !isMobile ? "items-center" : ""}
         `}
@@ -70,9 +69,9 @@ function Sidebar() {
           <NavLink
             to="/overview"
             className={({ isActive }) =>
-              `flex items-center ${
+              `flex items-center mb-4 ${
                 !isCollapsed ? "pl-4" : "justify-center"
-              } py-3 rounded-lg hover:bg-gray-800 ${
+              } py-3 rounded-lg hover:bg-gray-800 transition-colors ${
                 isActive
                   ? "bg-gray-100 text-gray-900 font-medium"
                   : "text-white font-normal"
@@ -90,11 +89,11 @@ function Sidebar() {
             )}
           </NavLink>
           <NavLink
-            to="/transcaction"
+            to="/transaction"
             className={({ isActive }) =>
-              `flex items-center ${
+              `flex items-center mb-4 ${
                 !isCollapsed ? "pl-4" : "justify-center"
-              } py-3 rounded-lg hover:bg-gray-800 ${
+              } py-3 rounded-lg hover:bg-gray-800 transition-colors ${
                 isActive
                   ? "bg-gray-100 text-gray-900 font-medium"
                   : "text-white font-normal"
@@ -114,9 +113,9 @@ function Sidebar() {
           <NavLink
             to="/budgets"
             className={({ isActive }) =>
-              `flex items-center ${
+              `flex items-center mb-4 ${
                 !isCollapsed ? "pl-4" : "justify-center"
-              } py-3 rounded-lg hover:bg-gray-800 ${
+              } py-3 rounded-lg hover:bg-gray-800 transition-colors ${
                 isActive
                   ? "bg-gray-100 text-gray-900 font-medium"
                   : "text-white font-normal"
@@ -136,9 +135,9 @@ function Sidebar() {
           <NavLink
             to="/posts"
             className={({ isActive }) =>
-              `flex items-center ${
+              `flex items-center mb-4 ${
                 !isCollapsed ? "pl-4" : "justify-center"
-              } py-3 rounded-lg hover:bg-gray-800 ${
+              } py-3 rounded-lg hover:bg-gray-800 transition-colors ${
                 isActive
                   ? "bg-gray-100 text-gray-900 font-medium"
                   : "text-white font-normal"
@@ -158,9 +157,9 @@ function Sidebar() {
           <NavLink
             to="/recurringBills"
             className={({ isActive }) =>
-              `flex items-center ${
+              `flex items-center mb-4 ${
                 !isCollapsed ? "pl-4" : "justify-center"
-              } py-3 rounded-lg hover:bg-gray-800 ${
+              } py-3 rounded-lg hover:bg-gray-800 transition-colors ${
                 isActive
                   ? "bg-gray-100 text-gray-900 font-medium"
                   : "text-white font-normal"
@@ -180,14 +179,15 @@ function Sidebar() {
         </nav>
 
         {!isMobile && (
-          <div className="mt-auto">
+          <div className="mt-auto mb-4">
             <button
               onClick={toggleSidebar}
-              className={`flex items-center ${
+              className={`flex items-center mb-4 ${
                 !isCollapsed ? "pl-4" : "justify-center"
-              } py-3 text-white text-sm hover:bg-gray-800 w-full`}
+              } py-3 text-white text-sm hover:bg-gray-800 w-full rounded-lg transition-colors`}
+              aria-label={isCollapsed ? "Expand menu" : "Minimize menu"}
             >
-              <Volume2 size={18} />
+              {/* <Volume2 size={18} />  */}
               {!isCollapsed && <span className="ml-3">Minimize Menu</span>}
             </button>
           </div>
