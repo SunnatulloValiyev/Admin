@@ -14,8 +14,8 @@ export function useCollection(c) {
       });
       setData(data);
     });
+    
     return () => unsubscribe();
   }, [c]);
-
   return { data };
 }

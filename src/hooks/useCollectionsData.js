@@ -49,7 +49,12 @@ export const useCollectionsData = () => {
                         type: doc.data().amount >= 0 ? "income" : "expense"
                     }))
                 });
-                console.log({});
+                console.log("Fetched data successfully", {
+                    balanceData,
+                    budgets: budgetsSnap.docs.map((d) => d.data()),
+                    pots: potsSnap.docs.map((d) => d.data()),
+                    transactions: transactionsSnap.docs.map((d) => d.data())
+                });
                 
 
             } catch (err) {
@@ -63,5 +68,7 @@ export const useCollectionsData = () => {
         fetchMultipleCollections();
     }, []);
 
+
     return { data, isPending, error };
 };
+

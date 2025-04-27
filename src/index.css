@@ -54,3 +54,17 @@
     0% {  transform: rotate(0)}
     100% { transform: rotate(360deg)}
   }
+
+
+.container{
+  overflow-x: hidden; 
+  overflow-y: auto;   
+  height: 100vh;     
+}
+
+
+.main {
+  overflow-x: hidden; 
+  overflow-y: auto;   
+  height: 100vh;      
+}
